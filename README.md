@@ -1,10 +1,12 @@
 # CriminalIntent2
+
 This repo is for me to practice Android Programming, using the tutorial book Android Programming(2nd ed.) by Bill Phillips, Chris Stewart, Brian Hardy and Kristin Marsicano.
 
 =============
 
 ## Fragment
 
+English, [日本語](http://qiita.com/mnishiguchi/items/de1b41fbf8cb02bd4ad1)
 - Always use fragments.
 
 ### Support library vs built-in implementation
@@ -12,16 +14,63 @@ This repo is for me to practice Android Programming, using the tutorial book And
 - Use the support library instead of Built-in implementation.
 
 ### Advantages of using the support library
+
 - The support library is quickly updated when new features are added to the fragment API.
 - We can update the version of the support library in our app and ship a new version of our app at any time
 - We will likely to use the support library for some of its features other than fragments.
 - No significant downsides to using the support library's fragments other than having to include in our project the support library that is a non-zero size. (Currently under a megabyte)
 
 ### Key classes from the support library
-- Fragment (android.support.v4.app.Fragment)
+
 - FragmentActivity (android.support.v4.app.FragmentActivity)
 
+```java
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+public class SomeActivity extends FragmentActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_crime);
+    }
+    // ...
+}
+```
+
+- Fragment (android.support.v4.app.Fragment)
+
+```java
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class SomeFragment extends Fragment{
+    // ...
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // ...
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.some_layout_file, container, false);
+        return v;
+    }
+}
+```
+
+=============
+
 ## Adding dependencies in Android Studio
+
 - To use the support library, our project must list it as a dependency.
 
 1. Open `app/build.gradle` to see currently registered dependencies
