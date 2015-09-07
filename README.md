@@ -9,6 +9,8 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 - [Fragment](https://github.com/mnishiguchi/CriminalIntent2#fragment)
 - [Adding dependencies in Android Studio](https://github.com/mnishiguchi/CriminalIntent2#adding-dependencies-in-android-studio)
 - [Adding a UI fragment to the FragmentManager](https://github.com/mnishiguchi/CriminalIntent2#adding-a-ui-fragment-to-the-fragmentmanager)
+- [Styles, themes, and theme attributes](https://github.com/mnishiguchi/CriminalIntent2#styles-themes-and-theme-attributes)
+- [Screen pixel densities and dp and sp](https://github.com/mnishiguchi/CriminalIntent2#screen-pixel-densities-and-dp-and-sp)
 
 =============
 
@@ -134,5 +136,42 @@ public class CrimeActivity extends FragmentActivity {
 }
 ```
 
+=============
 
+## Styles, themes, and theme attributes
 
+### Style
+- An XML resource that contains attributes that describes how a widget should look and behave.
+
+#### Creating our own styles
+
+- Add them to a style file in `res/values/`
+- Refer to them in layouts like `@style/my_own_style`
+
+### Theme
+
+- A collection of styles
+- A style resource whose attributes point to other stye resources
+- Android provides platform themes that our app can use.
+
+### Theme attribute reference
+
+- We can apply to a widget a style from the app's theme by using theme attribute reference.
+- E.g. `style="?android:listSeparatorTextViewStyle"`
+
+=============
+
+## Screen pixel densities and dp and sp
+
+- In practice, `sp` and `dp` are used almost exclusively
+- Android will translate these values into pixels at runtime
+
+### dp (density-independent pixel)
+
+- Typially used for margins, padding, or anything else for which you would otherwisespecify size with a pixel value
+- Always 1dp = 1/160 inches on a device's screen, regardless of screen density
+
+### sp (scale-independent pixel)
+
+- Density-independent pixels that also take into account the user's font size preference.
+- Almost always used to set display text size
