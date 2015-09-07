@@ -1,6 +1,6 @@
 # CriminalIntent2
 
-This repo is for me to practice Android Programming, using the tutorial book Android Programming(2nd ed.) by Bill Phillips, Chris Stewart, Brian Hardy and Kristin Marsicano.
+This repo is for me to practice Android Programming, along with the tutorial book [Android Programming(2nd ed.) by Bill Phillips, Chris Stewart, Brian Hardy and Kristin Marsicano](https://www.bignerdranch.com/blog/android-programming-the-big-nerd-ranch-guide-second-edition/). All the credit goes to these guys from Big Nerd Ranch. It's an awesome book.
 
 =============
 
@@ -62,6 +62,9 @@ public class SomeFragment extends Fragment{
                              ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.some_layout_file, container, false);
+
+        // ...
+
         return v;
     }
 }
@@ -84,6 +87,44 @@ public class SomeFragment extends Fragment{
 ![alt text](https://qiita-image-store.s3.amazonaws.com/0/82804/d94dd5f8-bf5e-e508-9db3-1de2d12cef89.png)
 6. Choose library dependency and click OK
 ![alt text](https://qiita-image-store.s3.amazonaws.com/0/82804/fe150e5f-fc96-bb23-60b5-97ce33d3c6d0.png)
+
+=============
+
+## Adding a UI fragment to the FragmentManager
+
+```java
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.os.Bundle;
+
+public class CrimeActivity extends FragmentActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_crime);
+
+        // Call `getSupportFragmentManager()` because we are using the support library
+        FragmentManager fm = getSupportFragmentManager();
+
+        // A container view ID serves two purposes:
+        // 1. Tells the FragmentManager where in the activity's view the fragment's view should appear.
+        // 2. Used as a unique identifier for a fragment in the FragmentManager's list.
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+
+        // Fragment transactions are used to add, remover, attach, detach, or
+        // replace fragments in the fragment list.
+        if (fragment == null) {
+            fragment = new CrimeFragment();
+
+            fm.beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .commit();
+        }
+    }
+}
+```
 
 
 
