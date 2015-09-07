@@ -6,6 +6,7 @@ import java.util.UUID;
  * Created by masa on 9/7/15.
  */
 public class Crime {
+
     private UUID mId;
     private String mTitle;
     private Date mDate;
