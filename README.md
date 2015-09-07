@@ -4,6 +4,14 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 
 =============
 
+## Table of contents
+
+- [Fragment](https://github.com/mnishiguchi/CriminalIntent2#fragment)
+- [Adding dependencies in Android Studio](https://github.com/mnishiguchi/CriminalIntent2#adding-dependencies-in-android-studio)
+- [Adding a UI fragment to the FragmentManager](https://github.com/mnishiguchi/CriminalIntent2#adding-a-ui-fragment-to-the-fragmentmanager)
+
+=============
+
 ## Fragment
 
 English, [日本語](http://qiita.com/mnishiguchi/items/de1b41fbf8cb02bd4ad1)
