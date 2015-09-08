@@ -11,6 +11,7 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 - [Adding a UI fragment to the FragmentManager](https://github.com/mnishiguchi/CriminalIntent2#adding-a-ui-fragment-to-the-fragmentmanager)
 - [Styles, themes, and theme attributes](https://github.com/mnishiguchi/CriminalIntent2#styles-themes-and-theme-attributes)
 - [Screen pixel densities and dp and sp](https://github.com/mnishiguchi/CriminalIntent2#screen-pixel-densities-and-dp-and-sp)
+- [Layout parameters vs widget parameters](https://github.com/mnishiguchi/CriminalIntent2#layout-parameters-vs-widget-parameters)
 
 =============
 
@@ -175,3 +176,18 @@ public class CrimeActivity extends FragmentActivity {
 
 - Density-independent pixels that also take into account the user's font size preference.
 - Almost always used to set display text size
+
+=============
+
+## Layout parameters vs widget parameters
+
+### Layout parameters
+- Attributes whose names begins with layout
+- directions to the widget's parent
+- E.g. margin - `android:layout_marginLeft`
+
+### widget parameters
+- Attributes whose names does not begin with layout
+- directions to the widget
+- E.g. padding - `android:padding`
+
