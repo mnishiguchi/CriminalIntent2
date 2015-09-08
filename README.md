@@ -12,6 +12,7 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 - [Styles, themes, and theme attributes](https://github.com/mnishiguchi/CriminalIntent2#styles-themes-and-theme-attributes)
 - [Screen pixel densities and dp and sp](https://github.com/mnishiguchi/CriminalIntent2#screen-pixel-densities-and-dp-and-sp)
 - [Layout parameters vs widget parameters](https://github.com/mnishiguchi/CriminalIntent2#layout-parameters-vs-widget-parameters)
+- [Formatting a date](https://github.com/mnishiguchi/CriminalIntent2#formatting-date)
 
 =============
 
@@ -191,3 +192,84 @@ public class CrimeActivity extends FragmentActivity {
 - directions to the widget
 - E.g. padding - `android:padding`
 
+=============
+
+## Formatting date
+
+### Pattern A
+- Format the date in short form according to the current locale.
+- Note `android.text.format.DateFormat.getDateFormat(context)` returns `java.text.DateFormat` rather than `android.text.format.DateFormat`.
+
+```java
+public class Crime {
+    // ...
+
+    /**
+     * @param c context
+     * @return formatted date string
+     */
+    public String getDateString(Context c) {
+        java.text.DateFormat df =
+            android.text.format.DateFormat.getDateFormat(c);
+        return df.format(mDate);
+    }
+    // ...
+}
+```
+
+- E.g. called in a fragment
+```java
+    mDateButton.setText(mCrime.getDateString(getActivity()));
+```
+
+### Pattern B
+- Format the date in long form according to the current locale.
+
+```java
+public class Crime {
+    // ...
+
+    /**
+     * @param c context
+     * @return formatted date string
+     */
+    public String getDateString(Context c) {
+        java.text.DateFormat df =
+            android.text.format.DateFormat.getLongDateFormat(c);
+        return df.format(mDate);
+    }
+    // ...
+}
+```
+
+- E.g. called in a fragment
+```java
+    mDateButton.setText(mCrime.getDateString(getActivity()));
+```
+
+
+### Pattern C
+
+- Format the date according to the specified format.
+- Try to avoid this pattern unless a custom format is really needed.
+- `android.text.format.DateFormat.format(CharSequence inFormat, Date inDate)`
+- [documentation about patterns](http://developer.android.com/reference/java/text/SimpleDateFormat.html)
+
+```java
+public class Crime {
+    // ...
+
+    /**
+     * @return formatted date string
+     */
+    public String getDateString() {
+        return ((String)DateFormat.format("EEE, MMM d, ''yy", mDate)).toString();
+    }
+    // ...
+}
+```
+
+- E.g. called in a fragment
+```java
+    mDateButton.setText(mCrime.getDateString());
+```

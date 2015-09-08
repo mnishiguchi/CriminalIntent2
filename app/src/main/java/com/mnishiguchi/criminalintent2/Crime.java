@@ -1,4 +1,6 @@
 package com.mnishiguchi.criminalintent2;
+import android.content.Context;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -29,6 +31,15 @@ public class Crime {
 
     public void setTitle(String title) {
         mTitle = title;
+    }
+
+    /**
+     * @param c context
+     * @return formatted date string
+     */
+    public String getDateString(Context c) {
+        java.text.DateFormat df = android.text.format.DateFormat.getLongDateFormat(c);
+        return df.format(mDate);
     }
 
     public Date getDate() {
