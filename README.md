@@ -2,7 +2,7 @@
 
 This repo is for me to practice Android Programming, along with the tutorial book [Android Programming(2nd ed.) by Bill Phillips, Chris Stewart, Brian Hardy and Kristin Marsicano](https://www.bignerdranch.com/blog/android-programming-the-big-nerd-ranch-guide-second-edition/). All the credit goes to these guys from Big Nerd Ranch. It's an awesome book.
 
-=============
+==
 
 ## Table of contents
 
@@ -13,12 +13,14 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 - [Screen pixel densities and dp and sp](https://github.com/mnishiguchi/CriminalIntent2#screen-pixel-densities-and-dp-and-sp)
 - [Layout parameters vs widget parameters](https://github.com/mnishiguchi/CriminalIntent2#layout-parameters-vs-widget-parameters)
 - [Formatting a date](https://github.com/mnishiguchi/CriminalIntent2#formatting-date)
+- [Shortcut keys](https://github.com/mnishiguchi/CriminalIntent2#shortcut-keys)
 
-=============
+==
 
 ## Fragment
 
-English, [日本語](http://qiita.com/mnishiguchi/items/de1b41fbf8cb02bd4ad1)
+[日本語](http://qiita.com/mnishiguchi/items/de1b41fbf8cb02bd4ad1)
+
 - Always use fragments.
 
 ### Support library vs built-in implementation
@@ -82,7 +84,7 @@ public class SomeFragment extends Fragment{
 }
 ```
 
-=============
+==
 
 ## Adding dependencies in Android Studio
 
@@ -100,7 +102,7 @@ public class SomeFragment extends Fragment{
 6. Choose library dependency and click OK
 ![alt text](https://qiita-image-store.s3.amazonaws.com/0/82804/fe150e5f-fc96-bb23-60b5-97ce33d3c6d0.png)
 
-=============
+==
 
 ## Adding a UI fragment to the FragmentManager
 
@@ -138,7 +140,7 @@ public class CrimeActivity extends FragmentActivity {
 }
 ```
 
-=============
+==
 
 ## Styles, themes, and theme attributes
 
@@ -161,7 +163,7 @@ public class CrimeActivity extends FragmentActivity {
 - We can apply to a widget a style from the app's theme by using theme attribute reference.
 - E.g. `style="?android:listSeparatorTextViewStyle"`
 
-=============
+==
 
 ## Screen pixel densities and dp and sp
 
@@ -178,7 +180,7 @@ public class CrimeActivity extends FragmentActivity {
 - Density-independent pixels that also take into account the user's font size preference.
 - Almost always used to set display text size
 
-=============
+==
 
 ## Layout parameters vs widget parameters
 
@@ -192,9 +194,11 @@ public class CrimeActivity extends FragmentActivity {
 - directions to the widget
 - E.g. padding - `android:padding`
 
-=============
+==
 
 ## Formatting date
+
+[日本語](http://qiita.com/mnishiguchi/items/9313d8ebe3b9d7bcd513)
 
 ### Pattern A
 - Format the date in short form according to the current locale.
@@ -202,6 +206,7 @@ public class CrimeActivity extends FragmentActivity {
 
 ```java
 public class Crime {
+    private Date mDate;
     // ...
 
     /**
@@ -227,6 +232,7 @@ public class Crime {
 
 ```java
 public class Crime {
+    private Date mDate;
     // ...
 
     /**
@@ -257,6 +263,7 @@ public class Crime {
 
 ```java
 public class Crime {
+    private Date mDate;
     // ...
 
     /**
@@ -273,3 +280,12 @@ public class Crime {
 ```java
     mDateButton.setText(mCrime.getDateString());
 ```
+
+==
+
+## Shortcut keys
+
+- importing class - `option` + `return`
+
+==
+
