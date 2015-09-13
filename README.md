@@ -289,3 +289,9 @@ public class Crime {
 
 ==
 
+## Declaring an activity in the manifest
+
+- Declare all the activities in the manifest
+- Specify the launcher activity
+
+==
