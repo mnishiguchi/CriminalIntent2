@@ -1,5 +1,8 @@
 # RecyclerView
 
+- Introduced with Android 5.0
+- The ListView and GridView are replaced with the RecyclerView because of the complexity required to alter the behavior of a ListView or GridView.
+
 ==
 
 ## How to implement it?

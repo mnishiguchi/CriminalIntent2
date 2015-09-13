@@ -6,12 +6,14 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 
 ## Index
 
-- [Dependencies - Adding dependencies in Android Studio]()
-- [Date format]()
-- [Fragment]()
+- [Dependencies - Adding dependencies in Android Studio](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/adding_dependency.md)
+- [DateFormat](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/formatting_date.md)
+- [Fragment](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/fragment.md)
 - [Parameters - Layout parameters vs widget parameters](https://github.com/mnishiguchi/CriminalIntent2#layout-parameters-vs-widget-parameters)
 - [Pixels - Screen pixel densities and dp and sp](https://github.com/mnishiguchi/CriminalIntent2#screen-pixel-densities-and-dp-and-sp)
+- [RecyclerView](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/RecyclerView.md)
 - [Shortcut keys](https://github.com/mnishiguchi/CriminalIntent2#shortcut-keys)
+- [Singletons](https://github.com/mnishiguchi/CriminalIntent2#singletons)
 - [Styles, themes, and theme attributes](https://github.com/mnishiguchi/CriminalIntent2#styles-themes-and-theme-attributes)
 
 ==
