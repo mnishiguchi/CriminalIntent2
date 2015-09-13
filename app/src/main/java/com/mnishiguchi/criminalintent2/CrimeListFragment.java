@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -63,11 +65,18 @@ public class CrimeListFragment extends Fragment {
     //==> Inner classes
 
     /**
-     * Represent a row of the crime list
+     * Represent a list item
      */
-    private class CrimeHolder extends RecyclerView.ViewHolder {
+    private class CrimeHolder extends RecyclerView.ViewHolder
+        implements View.OnClickListener {
 
-        public TextView mTitleTextView;
+        // Data item
+        private Crime mCrime;
+
+        // View widgets
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+        private CheckBox mSolvedCheckBox;
 
         /**
          * A constructor to create a viewHolder with the specified layout
@@ -75,7 +84,38 @@ public class CrimeListFragment extends Fragment {
          */
         public CrimeHolder(View itemView) {
             super(itemView);
-            mTitleTextView = (TextView) itemView;
+
+            // Detect clicks
+            itemView.setOnClickListener(this);
+
+            // Instantiate the widgets
+            mTitleTextView = (TextView) itemView.findViewById(
+                    R.id.list_item_crime_title_text_view);
+            mDateTextView = (TextView) itemView.findViewById(
+                    R.id.list_item_crime_date_text_view);
+            mSolvedCheckBox = (CheckBox) itemView.findViewById(
+                    R.id.list_item_crime_solved_check_box);
+        }
+
+        /**
+         * Wire each widget with appropriate data based on the passed-in object
+         * @param crime
+         */
+        public void bindCrime(Crime crime) {
+
+            // Store the data item that was passed in
+            mCrime = crime;
+
+            // Wire each widget to appropriate data
+            mTitleTextView.setText(mCrime.getTitle());
+            mDateTextView.setText(mCrime.getDateString(getActivity()));
+            mSolvedCheckBox.setChecked(mCrime.isSolved());
+        }
+
+        @Override
+        public void onClick(View v) {
+            String msg = mCrime.getTitle() + " clicked";
+            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -104,7 +144,7 @@ public class CrimeListFragment extends Fragment {
             // Inflate the layout of the rows from an xml file
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater.inflate(
-                    android.R.layout.simple_list_item_1, parent, false);
+                    R.layout.list_item_crime, parent, false);
 
             // Create a viewHolder with the layout
             return new CrimeHolder(view);
@@ -122,8 +162,8 @@ public class CrimeListFragment extends Fragment {
             // Get the data item based on the position
             Crime crime = mCrimes.get(position);
 
-            // Display the item's title text
-            holder.mTitleTextView.setText(crime.getTitle());
+            // Provide data to the viewHolder
+            holder.bindCrime(crime);
         }
 
         /**
