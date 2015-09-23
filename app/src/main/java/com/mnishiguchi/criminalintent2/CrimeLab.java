@@ -23,7 +23,7 @@ public class CrimeLab {
      */
     public static CrimeLab get(Context context) {
         if (sCrimeLab == null) {
-            sCrimeLab = new CrimeLab(context);
+            sCrimeLab = new CrimeLab(context.getApplicationContext() );
         }
         return sCrimeLab;
     }
@@ -54,7 +54,7 @@ public class CrimeLab {
                 return crime;
             }
         }
-        return null;  // FIXME
+        return null;
     }
 
     /**

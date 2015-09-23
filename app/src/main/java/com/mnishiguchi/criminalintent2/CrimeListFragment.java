@@ -1,5 +1,6 @@
 package com.mnishiguchi.criminalintent2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -114,8 +115,9 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            String msg = mCrime.getTitle() + " clicked";
-            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+            // Start CrimeActivity for the crime that was clicked.
+            Intent i = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            startActivity(i);
         }
     }
 

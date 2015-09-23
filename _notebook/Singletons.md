@@ -3,6 +3,7 @@
 - Commonly used on Android
 - a key component of a well-architected Android app
 - Make sure that anything in our singleton is truly global and has a strong reason for being there
+- Use [the application context](https://possiblemobile.com/2013/06/context/)
 
 ## Upsides
 

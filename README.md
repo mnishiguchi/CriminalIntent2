@@ -84,3 +84,10 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 - Specify the launcher activity
 
 ==
+
+## Toast
+
+```java
+String msg = "clicked";
+Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+```
