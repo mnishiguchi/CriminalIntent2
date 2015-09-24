@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -53,8 +51,7 @@ public class CrimeListFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        // Reload the list. In general, onResume() is the safest place to
-        // take action to update a fragment's view.
+        // Reload the list.
         updateUI();
     }
 
@@ -130,7 +127,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             // Start CrimeActivity for the crime that was clicked.
-            Intent i = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            Intent i = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(i);
         }
     }

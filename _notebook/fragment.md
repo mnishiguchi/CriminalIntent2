@@ -18,6 +18,17 @@
 
 - FragmentActivity (android.support.v4.app.FragmentActivity)
 
+==
+
+## Fragment's independence
+
+- To maintain the flexibility of independent fragments.
+- Does not go both ways:
+    + Hosting activities should know the specifics of how to host their fragments.
+    + Fragments should not have to know specifics about their activities.
+
+==
+
 ## Examples
 
 ### Generic fragment-hosting layout
@@ -178,6 +189,63 @@ public class CrimeFragment extends Fragment{
         return v;
     }
 }
+```
+
+### Starting a new Fragment-hosting Activity
+
+#### The callee activity
+1. Implement `Intent newIntent(Context packageContext, SomeType data)` that creates an Intent to start the Activity.
+2. Implement `createFragment()` that creates a Fragment based on the data passed in as an extra.
+
+#### The caller fragment
+3. Create a new Intent by calling `newIntent(...)` 
+4. Call `startActivity(...)` with it.
+
+```java
+// The callee activity
+public class CrimeActivity extends SingleFragmentActivity {
+
+    // Used for passing data through an intent.
+    private static final String EXTRA_CRIME_ID = "com.mnishiguchi.criminalintent2.crime_id";
+
+    /**
+     * Start CrimeActivity for the crime associated with the specified id.
+     * @param packageContext
+     * @param crimeId
+     * @return intent
+     */
+    public static Intent newIntent(Context packageContext, UUID crimeId) {
+        Intent intent = new Intent(packageContext, CrimeActivity.class);
+        intent.putExtra(EXTRA_CRIME_ID, crimeId);
+        return intent;
+    }
+
+    /**
+     * @return an instance of the fragment that the activity is hosting
+     */
+    @Override
+    protected Fragment createFragment() {
+        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        return CrimeFragment.newInstance(crimeId);
+    }
+}
+```
+
+```java
+// The caller fragment
+public class CrimeListFragment extends Fragment {
+
+    private RecyclerView mCrimeRecyclerView;
+    private CrimeAdapter mAdapter;
+
+    //...
+        @Override
+        public void onClick(View v) {
+            // Start CrimeActivity for the crime that was clicked.
+            Intent i = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            startActivity(i);
+        }
+    //...
 ```
 
 

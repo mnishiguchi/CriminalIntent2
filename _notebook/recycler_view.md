@@ -14,6 +14,17 @@
     - instantiate the RecycleView
     - Set a LayoutManager on it
 5. Implement Adapter and ViewHolder as inner classes of the fragment
+6. Implement updateUI() which sets up the adapter of updates the list if the adapter is already set up
+
+==
+
+## Reloading the list
+
+- The RecyclerView's Adapter needs to be informed that the data has changed (or may have changed) so that it can refetch the data and reload the list.
+-  In general, onResume() is the safest place to take action to update a fragment's view.
+- Methods for reloading the list:
+    + `notifyDataSetChanged()` - Reload all the items that are currently visible
+    + `notifyItemChanged(int position)` - Reload only specified item  
 
 ==
 

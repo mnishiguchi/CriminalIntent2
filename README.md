@@ -11,10 +11,11 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 - [Fragment](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/fragment.md)
 - [Parameters - Layout parameters vs widget parameters](https://github.com/mnishiguchi/CriminalIntent2#layout-parameters-vs-widget-parameters)
 - [Pixels - Screen pixel densities and dp and sp](https://github.com/mnishiguchi/CriminalIntent2#screen-pixel-densities-and-dp-and-sp)
-- [RecyclerView](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/RecyclerView.md)
+- [RecyclerView](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/recycler_view.md)
 - [Shortcut keys](https://github.com/mnishiguchi/CriminalIntent2#shortcut-keys)
 - [Singletons](https://github.com/mnishiguchi/CriminalIntent2#singletons)
 - [Styles, themes, and theme attributes](https://github.com/mnishiguchi/CriminalIntent2#styles-themes-and-theme-attributes)
+- [ViewPager](https://github.com/mnishiguchi/CriminalIntent2#_notebook/view_pager)
 
 ==
 
@@ -91,3 +92,9 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 String msg = "clicked";
 Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 ```
+
+==
+
+## Don't forget to add an activity to the manifest
+- When creating a new activity, add it to the manifest so that the OS can start it.
+- 
