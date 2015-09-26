@@ -74,9 +74,10 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 
 ==
 
-## Shortcut keys
+## Shortcut keys (OS X)
 
 - importing class - `option` + `return`
+- rotating the emulator - `fn`+`contol`+`F12`
 
 ==
 

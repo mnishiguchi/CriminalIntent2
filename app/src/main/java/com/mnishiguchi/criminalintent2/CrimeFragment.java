@@ -1,5 +1,7 @@
 package com.mnishiguchi.criminalintent2;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -20,11 +23,15 @@ import java.util.UUID;
  */
 public class CrimeFragment extends Fragment {
 
-    // for the newInstance method
+    // for the Bundle arguments
     private static final String ARG_CRIME_ID = "crime_id";
 
     // for the date picker dialog
     private static final String DIALOG_DATE = "DialogDate";
+
+    // for setting a target fragment
+    private static final int REQUEST_DATE = 0;
+
 
     private Crime mCrime;
     private EditText mTitleField;
@@ -37,20 +44,14 @@ public class CrimeFragment extends Fragment {
      * @return
      */
     public static CrimeFragment newInstance(UUID crimeId) {
-        /*
-        Arguments bundle
-        - Every fragment instance can have a Bundle object attached to it.
-        - The bundle contains key-value pairs, known as arguments.
 
-        Attaching the arguments bundle to a fragment
-        - Must be done after fragment is created but before it is added to an activity.
-         */
+        // Create a bundle.
         Bundle args = new Bundle();
         args.putSerializable(ARG_CRIME_ID, crimeId);
 
+        // Create and configure a new instance of CrimeFragment.
         CrimeFragment fragment = new CrimeFragment();
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -89,13 +90,20 @@ public class CrimeFragment extends Fragment {
         });
 
         mDateButton = (Button)v.findViewById(R.id.crime_date);
-        mDateButton.setText(mCrime.getDateString(getActivity()));
-        //mDateButton.setEnabled(false);
+        updateDate();
         mDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get a fragment manager.
                 FragmentManager manager = getFragmentManager();
-                DatePickerFragment dialog = new DatePickerFragment();
+
+                // Get a new instance of DatePickerFragment.
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+
+                // Set a target fragment to this fragment for getting the result from DatePickerFragment.
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+
+                // Show the DatePickerFragment.
                 dialog.show(manager, DIALOG_DATE);
             }
         });
@@ -110,5 +118,31 @@ public class CrimeFragment extends Fragment {
         });
 
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // The result code must be OK.
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        // Retrieve the date that the user entered and update the date text.
+        if (requestCode == REQUEST_DATE) {
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+
+            // Update the date in the model layer.
+            mCrime.setDate(date);
+
+            // Update the date in the UI.
+            updateDate();
+        }
+    }
+
+    /**
+     * Set the date text in the UI based on the data from the model layer.
+     */
+    private void updateDate() {
+        mDateButton.setText(mCrime.getDateString(getActivity()));
     }
 }

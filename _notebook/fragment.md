@@ -27,6 +27,15 @@
     + Hosting activities should know the specifics of how to host their fragments.
     + Fragments should not have to know specifics about their activities.
 
+## Arguments bundle
+- Common convention used to stash data in the fragment.
+- Every fragment instance can have a Bundle object attached to it.
+- The bundle contains key-value pairs, known as arguments.
+- Attaching the arguments bundle to a fragment must be done
+    - after fragment is created but
+    - before it is added to an activity.
+- Unlike onSavedInstanceState(Bundle), Arguments bundle enable us to explicitly save data, which contributes to better maintainability.
+
 ==
 
 ## Examples
