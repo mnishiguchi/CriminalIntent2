@@ -6,6 +6,8 @@
 - Wrap the AlertDialog in an instance of DialogFragment
     + more options for presenting the dialog
     + can survive the configuration changes
+- [DatePickerFragment](https://github.com/mnishiguchi/CriminalIntent2/blob/master/app/src/main/java/com/mnishiguchi/criminalintent2/DatePickerFragment.java)
+- [TimePickerFragment](https://github.com/mnishiguchi/CriminalIntent2/blob/master/app/src/main/java/com/mnishiguchi/criminalintent2/TimePickerFragment.java)
 
 ### The hierachical structure of a dialog with a DatePicker
 - Hosting Activity -> CallerFragment

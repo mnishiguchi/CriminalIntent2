@@ -26,16 +26,18 @@ public class CrimeFragment extends Fragment {
     // for the Bundle arguments
     private static final String ARG_CRIME_ID = "crime_id";
 
-    // for the date picker dialog
+    // for the dialogs
     private static final String DIALOG_DATE = "DialogDate";
+    private static final String DIALOG_TIME = "DialogTime";
 
     // for setting a target fragment
     private static final int REQUEST_DATE = 0;
-
+    private static final int REQUEST_TIME = 1;
 
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
+    private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
 
     /**
@@ -98,13 +100,32 @@ public class CrimeFragment extends Fragment {
                 FragmentManager manager = getFragmentManager();
 
                 // Get a new instance of DatePickerFragment.
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+                DatePickerFragment dialogDate = DatePickerFragment.newInstance(mCrime.getDate());
 
                 // Set a target fragment to this fragment for getting the result from DatePickerFragment.
-                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                dialogDate.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
 
                 // Show the DatePickerFragment.
-                dialog.show(manager, DIALOG_DATE);
+                dialogDate.show(manager, DIALOG_DATE);
+            }
+        });
+
+        mTimeButton = (Button)v.findViewById(R.id.crime_time);
+        updateTime();
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get a fragment manager.
+                FragmentManager manager = getFragmentManager();
+
+                // Get a new instance of TimePickerFragment.
+                TimePickerFragment dialogTime = TimePickerFragment.newInstance(mCrime.getDate());
+
+                // Set a target fragment to this fragment for getting the result from DatePickerFragment.
+                dialogTime.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
+
+                // Show the DatePickerFragment.
+                dialogTime.show(manager, DIALOG_TIME);
             }
         });
 
@@ -136,6 +157,15 @@ public class CrimeFragment extends Fragment {
 
             // Update the date in the UI.
             updateDate();
+
+        } else if (requestCode == REQUEST_TIME) {
+            Date date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_DATE);
+
+            // Update the date in the model layer.
+            mCrime.setDate(date);
+
+            // Update the date in the UI.
+            updateTime();
         }
     }
 
@@ -144,5 +174,12 @@ public class CrimeFragment extends Fragment {
      */
     private void updateDate() {
         mDateButton.setText(mCrime.getDateString(getActivity()));
+    }
+
+    /**
+     * Set the time text in the UI based on the data from the model layer.
+     */
+    private void updateTime() {
+        mTimeButton.setText(mCrime.getTimeString(getActivity()));
     }
 }

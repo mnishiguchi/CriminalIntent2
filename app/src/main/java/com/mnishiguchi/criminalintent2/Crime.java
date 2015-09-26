@@ -1,7 +1,10 @@
 package com.mnishiguchi.criminalintent2;
 import android.content.Context;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.UUID;
 
 /**
@@ -39,6 +42,15 @@ public class Crime {
      */
     public String getDateString(Context c) {
         java.text.DateFormat df = android.text.format.DateFormat.getLongDateFormat(c);
+        return df.format(mDate);
+    }
+
+    /**
+     * @param c context
+     * @return formatted time string
+     */
+    public String getTimeString(Context c) {
+        java.text.DateFormat df = android.text.format.DateFormat.getTimeFormat(c);
         return df.format(mDate);
     }
 

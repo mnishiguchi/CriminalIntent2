@@ -1,52 +1,46 @@
-# Formatting date
+# Formatting date/time
 
 [日本語](http://qiita.com/mnishiguchi/items/9313d8ebe3b9d7bcd513)
 
-### Short format based on locale
-- Format the date in short form according to the current locale.
+### format based on locale
+- Format the date in long/short form according to the current locale.
 - Note `android.text.format.DateFormat.getDateFormat(context)` returns `java.text.DateFormat` rather than `android.text.format.DateFormat`.
 
 ```java
 public class Crime {
     private Date mDate;
+
     // ...
 
     /**
      * @param c context
-     * @return formatted date string
+     * @return formatted date string based on locale
      */
-    public String getDateString(Context c) {
+    public String getShortDateString(Context c) {
         java.text.DateFormat df =
             android.text.format.DateFormat.getDateFormat(c);
         return df.format(mDate);
     }
-    // ...
-}
-```
-
-- E.g. called in a fragment
-```java
-    mDateButton.setText(mCrime.getDateString(getActivity()));
-```
-
-### Long format based on locale
-- Format the date in long form according to the current locale.
-
-```java
-public class Crime {
-    private Date mDate;
-    // ...
 
     /**
      * @param c context
-     * @return formatted date string
+     * @return formatted date string based on locale
      */
-    public String getDateString(Context c) {
+    public String getLongDateString(Context c) {
         java.text.DateFormat df =
             android.text.format.DateFormat.getLongDateFormat(c);
         return df.format(mDate);
     }
-    // ...
+
+    /**
+     * @param c context
+     * @return formatted time string based on locale
+     */
+    public String getTimeString(Context c) {
+        java.text.DateFormat df = 
+            android.text.format.DateFormat.getTimeFormat(c);
+        return df.format(mDate);
+    }
 }
 ```
 

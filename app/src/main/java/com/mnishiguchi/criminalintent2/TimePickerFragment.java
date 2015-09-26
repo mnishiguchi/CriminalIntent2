@@ -9,36 +9,37 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * A wrapper fragment for the AlertDialog with a DatePicker.
+ * A wrapper fragment for the AlertDialog with a TimePicker.
  * Created by masa on 9/26/15.
  */
-public class DatePickerFragment extends DialogFragment {
+public class TimePickerFragment extends DialogFragment {
 
     public static final String EXTRA_DATE = "com.mnishiguchi.criminalintent2.date";
 
     // for the newInstance method
     private static final String ARG_DATE = "date";
 
-    private DatePicker mDatePicker;
+    private TimePicker mTimePicker;
+    private int mYear, mMonth, mDay;
 
     /**
      * @param date
-     * @return an instance of DatePickerFragment that is configured for the specified date.
+     * @return an instance of TimePickerFragment that is configured for the specified date.
      */
-    public static DatePickerFragment newInstance(Date date) {
+    public static TimePickerFragment newInstance(Date date) {
         // Create a bundle.
         Bundle args = new Bundle();
         args.putSerializable(ARG_DATE, date);
 
-        // Create and configure a new instance of DatePickerFragment.
-        DatePickerFragment fragment = new DatePickerFragment();
+        // Create and configure a new instance of TimePickerFragment.
+        TimePickerFragment fragment = new TimePickerFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,20 +54,29 @@ public class DatePickerFragment extends DialogFragment {
         // Get the date from the bundle arguments.
         Date date = (Date) getArguments().getSerializable(ARG_DATE);
 
-        // Get year, month and day from the date.
+        // Get year, month, day and time from the date object.
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        int year  = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day   = calendar.get(Calendar.DAY_OF_MONTH);
+        mYear    = calendar.get(Calendar.YEAR);
+        mMonth   = calendar.get(Calendar.MONTH);
+        mDay     = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int min  = calendar.get(Calendar.MINUTE);
 
         // Inflate the dialog's view from an xml file.
         View v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.dialog_date, null);
+                .inflate(R.layout.dialog_time, null);
 
-        // Initialize the DatePicker in the dialog.
-        mDatePicker = (DatePicker) v.findViewById(R.id.dialog_date_date_picker);
-        mDatePicker.init(year, month, day, null);
+        /*
+        Note: The following methods of TimePicker became depricated at the release of API 23:
+            setCurrentHour(...), setCurrentMinute(...), getCurrentHour(), getCurrentMinute()
+         */
+
+        // Initialize the TimePicker in the dialog.
+        mTimePicker = (TimePicker) v.findViewById(R.id.dialog_time_time_picker);
+        mTimePicker.setCurrentHour(hour);
+        mTimePicker.setCurrentMinute(min);
+        mTimePicker.setIs24HourView(false);
 
         // Build and return a configured AlertDialog instance.
         return new AlertDialog.Builder(getActivity())
@@ -75,13 +85,12 @@ public class DatePickerFragment extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // Get year, month and day from the DatePicker.
-                        int year  = mDatePicker.getYear();
-                        int month = mDatePicker.getMonth();
-                        int day   = mDatePicker.getDayOfMonth();
+                        // Get year, month and day from the TimePicker.
+                        int hour = mTimePicker.getCurrentHour();
+                        int min  = mTimePicker.getCurrentMinute();
 
-                        // Create a Date object based on the year, month and day.
-                        Date date = new GregorianCalendar(year, month, day).getTime();
+                        // Translate year, month and day into a Date object.
+                        Date date = new GregorianCalendar(mYear, mMonth, mDay, hour, min).getTime();
 
                         // Send the date as result data
                         sendResult(Activity.RESULT_OK, date);
