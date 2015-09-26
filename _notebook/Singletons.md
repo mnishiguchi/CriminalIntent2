@@ -1,4 +1,4 @@
-# Singletons
+# Singleton
 
 - Commonly used on Android
 - a key component of a well-architected Android app
