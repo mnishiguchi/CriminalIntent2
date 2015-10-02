@@ -34,7 +34,15 @@ public class CrimeLab {
      */
     private CrimeLab(Context context) {
         mCrimes = new ArrayList<>();
-        createFakeCrimes();
+        //createFakeCrimes();
+    }
+
+    /**
+     * Add a new crime
+     * @param c
+     */
+    public void addCrime(Crime c) {
+        mCrimes.add(c);
     }
 
     /**
