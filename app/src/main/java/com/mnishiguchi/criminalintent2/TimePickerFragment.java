@@ -27,7 +27,7 @@ public class TimePickerFragment extends DialogFragment {
     private static final String ARG_DATE = "date";
 
     private TimePicker mTimePicker;
-    private int mYear, mMonth, mDay;
+    private int mYear, mMonth, mDay;  // Remember the values of year, month and day
 
     /**
      * @param date

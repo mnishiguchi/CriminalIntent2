@@ -54,4 +54,14 @@
 - As opposed to back buton being *temporal navigation*
 - Enable hierarchical navigation by adding a `parentActivityName` attribute in the AndroidManifest.xml file
 
+```xml
+...
+<activity
+    android:name=".CrimePagerActivity"
+    android:label="@string/title_activity_crime_pager"
+    android:parentActivityName=".CrimeListActivity" >
+</activity>
+...
+```
+
 

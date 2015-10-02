@@ -27,6 +27,7 @@ public class DatePickerFragment extends DialogFragment {
     private static final String ARG_DATE = "date";
 
     private DatePicker mDatePicker;
+    private int mHour, mMin;  // Remember the values of hour and minute
 
     /**
      * @param date
@@ -59,6 +60,9 @@ public class DatePickerFragment extends DialogFragment {
         int year  = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day   = calendar.get(Calendar.DAY_OF_MONTH);
+        mHour = calendar.get(Calendar.HOUR_OF_DAY);
+        mMin  = calendar.get(Calendar.MINUTE);
+
 
         // Inflate the dialog's view from an xml file.
         View v = LayoutInflater.from(getActivity())
@@ -81,7 +85,7 @@ public class DatePickerFragment extends DialogFragment {
                         int day   = mDatePicker.getDayOfMonth();
 
                         // Create a Date object based on the year, month and day.
-                        Date date = new GregorianCalendar(year, month, day).getTime();
+                        Date date = new GregorianCalendar(year, month, day, mHour, mMin).getTime();
 
                         // Send the date as result data
                         sendResult(Activity.RESULT_OK, date);
