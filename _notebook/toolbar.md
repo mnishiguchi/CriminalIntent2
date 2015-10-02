@@ -49,3 +49,9 @@
 ## AppCompatActivity
 
 - Can substitute for `FragmentActivity` since `AppCompatActivity` is a subclass of `FragmentActivity`
+
+## Hierarchical navigation (Up button)
+- As opposed to back buton being *temporal navigation*
+- Enable hierarchical navigation by adding a `parentActivityName` attribute in the AndroidManifest.xml file
+
+

@@ -16,7 +16,8 @@
         </activity>
         <activity
             android:name=".CrimePagerActivity"
-            android:label="@string/title_activity_crime_pager" >
+            android:label="@string/title_activity_crime_pager"
+            android:parentActivityName=".CrimeListActivity" >
         </activity>
     </application>
 
