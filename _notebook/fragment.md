@@ -5,7 +5,8 @@
 
 ## the support library
 
-- Add android.support.v4 library as a dependency
+- Add android.support.v4 library as a dependency (for ViewPager etc)
+- Add android.support.v7 library as a dependency (for toolbar etc)
 
 ### Advantages of using the support library
 
@@ -14,9 +15,10 @@
 - We will likely to use the support library for some of its features other than fragments.
 - No significant downsides to using the support library's fragments other than having to include in our project the support library that is a non-zero size. (Currently under a megabyte)
 
-### Key classes from the support library
+### Activity classes from the support library
 
-- FragmentActivity (android.support.v4.app.FragmentActivity)
+- `android.support.v4.app.FragmentActivity`
+- Note: if we need to back-port the toolbar, use `android.support.v7.app.AppCompatActivity`, instead
 
 ==
 
