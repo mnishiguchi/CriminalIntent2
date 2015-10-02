@@ -2,6 +2,7 @@
 
 - Added to Android as of Android 5.0 (Lollipop)
 - Back-ported to the `AppCompat` library
+- The top-right area of the toolbar is reserved for the toolbar's menu
 
 ## Requirements
 
@@ -47,7 +48,42 @@
 
 ## AppCompatActivity
 
-- Can substitute for FragmentActivity since AppCompatActivity is a subclass of FragmentActivity
+- Can substitute for `FragmentActivity` since `AppCompatActivity` is a subclass of `FragmentActivity`
+
+===
+
+## Menus
+
+- The top-right area of the toolbar is reserved for the toolbar's menu
+- consists of action items, aka menu items
+- actions on the current screen or to the app as a whole
+
+### How to implement it
+
+#### Defining a menu in XML
+- right-click on the res directory and select New -> Android resource file
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <item
+        android:id="@+id/menu_item_new_crime"
+        android:icon="@drawable/ic_menu_add"
+        android:title="@string/new_crime"
+        app:showAsAction="ifRoom|withText" />
+</menu>
+```
+
+#### Creating an icon as a local resource using Android Asset Studio
+- right-click on the drawable directory and select New -> Image Assset
+- mdpi, hdpi, xhdpi, xxhdpi icons will be automatically created
+- Reference the icon using `@drawable/ic_menu_...` in the xml file
+
+
+
+
 
 
 
