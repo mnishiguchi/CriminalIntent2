@@ -3,6 +3,7 @@ package com.mnishiguchi.criminalintent2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -28,6 +31,10 @@ public class CrimeListFragment extends Fragment {
      - Requires a LayoutManager to work
      */
     private RecyclerView mCrimeRecyclerView;
+
+    private TextView mEmptyText;
+    private Button mEmptyButton;
+
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
 
@@ -52,6 +59,16 @@ public class CrimeListFragment extends Fragment {
 
         // RecyclerView requires a LayoutManager to work
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        // Instantiate the empty view
+        mEmptyText = (TextView) view.findViewById(R.id.empty_view_text);
+        mEmptyButton = (Button) view.findViewById(R.id.empty_view_button);
+        mEmptyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createCrime();
+            }
+        });
 
         // Update the Adapter and connect it to the RecyclerView
         updateUI();
@@ -91,10 +108,7 @@ public class CrimeListFragment extends Fragment {
         switch (item.getItemId()) {
 
             case R.id.menu_item_new_crime:
-                Crime crime = new Crime();
-                CrimeLab.get(getActivity()).addCrime(crime);
-                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
-                startActivity(intent);
+                createCrime();
                 return true;  // Indicate that no further processing is necessary
 
             case R.id.menu_item_show_subtitle:
@@ -106,6 +120,13 @@ public class CrimeListFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void createCrime() {
+        Crime crime = new Crime();
+        CrimeLab.get(getActivity()).addCrime(crime);
+        Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
+        startActivity(intent);
     }
 
     private void updateSubtitle() {
@@ -138,6 +159,18 @@ public class CrimeListFragment extends Fragment {
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.notifyDataSetChanged();
+        }
+
+        // Show the placeholder view if the list is empty.
+        if (crimes.isEmpty()) {
+            mCrimeRecyclerView.setVisibility(View.GONE);
+            mEmptyText.setVisibility(View.VISIBLE);
+            mEmptyButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            mCrimeRecyclerView.setVisibility(View.VISIBLE);
+            mEmptyText.setVisibility(View.GONE);
+            mEmptyButton.setVisibility(View.GONE);
         }
     }
 

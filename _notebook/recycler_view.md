@@ -28,6 +28,115 @@
 
 ==
 
+## Placeholding the empty list
+
+- Give something to interact with when there are no items in the list
+- Use setVisibility(...) to toggle the placeholder when appropriate
+- [StackOverflow](http://stackoverflow.com/questions/28217436/how-to-show-an-empty-view-with-a-recyclerview)
+- [EmptyRecyclerView.java](https://gist.github.com/adelnizamutdinov/31c8f054d1af4588dc5c)
+
+### E.g.
+
+layout file
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/crime_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Empty view -->
+    <Button
+        android:id="@+id/empty_view_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/new_crime"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/empty_view_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/empty_view_button"
+        android:visibility="gone"
+        android:text="@string/no_data_available" />
+</RelativeLayout>
+```
+
+Java code
+```java
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        //...
+
+        // Instantiate the empty view
+        mEmptyText = (TextView) view.findViewById(R.id.empty_view_text);
+        mEmptyButton = (Button) view.findViewById(R.id.empty_view_button);
+        mEmptyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createCrime();
+            }
+        });
+
+        updateUI();
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        updateUI();
+    }
+
+    //...
+
+    /**
+     * Update the Adapter based on the current data set.
+     * Connect the Adapter to the RecyclerView
+     */
+    private void updateUI() {
+
+        // Get a list of crimes from the model layer
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        List<Crime> crimes = crimeLab.getCrimes();
+
+        // Reload the list if the adapter is already set up.
+        if (mAdapter == null) {
+            mAdapter = new CrimeAdapter(crimes);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
+
+        // Show the placeholder view if the list is empty.
+        if (crimes.isEmpty()) {
+            mCrimeRecyclerView.setVisibility(View.GONE);
+            mEmptyText.setVisibility(View.VISIBLE);
+            mEmptyButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            mCrimeRecyclerView.setVisibility(View.VISIBLE);
+            mEmptyText.setVisibility(View.GONE);
+            mEmptyButton.setVisibility(View.GONE);
+        }
+    }
+    //...
+```
+
+
+
+==
+
 ## Examples
 
 ### Simple list using the Android standard library
