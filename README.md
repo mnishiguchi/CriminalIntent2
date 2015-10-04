@@ -6,8 +6,8 @@ This repo is for me to practice Android Programming, along with the tutorial boo
 
 ## Index
 
-- [Dependencies - Adding dependencies in Android Studio](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/adding_dependency.md)
 - [DateFormat](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/formatting_date.md)
+- [Dependencies - Adding dependencies in Android Studio](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/adding_dependency.md)
 - [Dialog](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/dialog.md)
 - [Fragment](https://github.com/mnishiguchi/CriminalIntent2/blob/master/_notebook/fragment.md)
 - [Parameters - Layout parameters vs widget parameters](https://github.com/mnishiguchi/CriminalIntent2#layout-parameters-vs-widget-parameters)
