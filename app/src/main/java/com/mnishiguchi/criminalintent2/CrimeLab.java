@@ -46,6 +46,14 @@ public class CrimeLab {
     }
 
     /**
+     * Remove the specified crime from the CrimeLab's list
+     * @param c
+     */
+    public void deleteCrime(Crime c) {
+        mCrimes.remove(c);
+    }
+
+    /**
      * @return an ArrayList of Crime objects
      */
     public List<Crime> getCrimes() {

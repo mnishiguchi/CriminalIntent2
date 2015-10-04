@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -64,6 +68,10 @@ public class CrimeFragment extends Fragment {
         // Get the crime ID and fetch the crime from CrimeLab based the ID.
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+
+        // Get the FragmentManager to call onCreateOptionsMenu(...) when
+        // the hosting Activity receives its onCreateOptionsMenu(...)
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -181,5 +189,41 @@ public class CrimeFragment extends Fragment {
      */
     private void updateTime() {
         mTimeButton.setText(mCrime.getTimeString(getActivity()));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        // Pass in the res ID of the menu file and the Menu instance
+        inflater.inflate(R.menu.fragment_crime, menu);
+    }
+
+    /**
+     * Invoked when the user presses an action item
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.menu_item_delete_crime:
+                // Get the crime title if not empty
+                String crimeTitle = TextUtils.isEmpty(mCrime.getTitle()) ?
+                        getString(android.R.string.untitled) : mCrime.getTitle();
+
+                // Delete the crime from the CrimeLab
+                CrimeLab.get(getActivity()).deleteCrime(mCrime);
+
+                // Show toast
+                Utils.toast(getActivity(), crimeTitle + " was deleted");
+
+                // Close this activity
+                getActivity().finish();
+                return true;  // Indicate that no further processing is necessary
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

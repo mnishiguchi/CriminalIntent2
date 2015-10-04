@@ -67,11 +67,67 @@ public class CrimeListFragment extends Fragment {
     }
 ```
 
+==
 
+## Toggling the action item
 
+### 1. Create a boolean instance variable
+```java
+    private boolean mSubtitleVisible;
+```
 
+### 2. Write a conditional statement in the onCreateOptionsMenu(...)
+```java
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        // Pass in the res ID of the menu file and the Menu instance
+        inflater.inflate(R.menu.fragment_crime_list, menu);
 
+        MenuItem subtitleItem = menu.findItem(R.id.menu_item_show_subtitle);
+        if (mSubtitleVisible) {
+            subtitleItem.setTitle(R.string.hide_subtitle);
+        } else {
+            subtitleItem.setTitle(R.string.show_subtitle);
+        }
+    }
+```
 
+### 3. Redraw the menu items in onOptionsItemSelected(...)
+```java
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
+            //...
+
+            case R.id.menu_item_show_subtitle:
+                mSubtitleVisible = !mSubtitleVisible;  // Toggle the bool
+                getActivity().invalidateOptionsMenu(); // Redraw the menus
+                updateSubtitle();
+                return true;  // Indicate that no further processing is necessary
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+```
+
+### 4. Write a method to update the subtitle
+```java
+    private void updateSubtitle() {
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        int crimeCount = crimeLab.getCrimes().size();
+        String subtitle = getString(R.string.subtitle_format, crimeCount);
+
+        // Hide the subtitle if in the hidden state
+        if (!mSubtitleVisible) {
+            subtitle = null;
+        }
+
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setSubtitle(subtitle);
+    }
+```
 
 

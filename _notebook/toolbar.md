@@ -3,12 +3,22 @@
 - Added to Android as of Android 5.0 (Lollipop)
 - Back-ported to the `AppCompat` library
 - The top-right area of the toolbar is reserved for the toolbar's menu
+- More flexible than older Android's Action Bar
+    - Can be manually included as a normal view in a activity / fragment
+    - multiple toolbars on the screen at the same time
+    - can place Views inside of the toolbar
+    - can adjust  the height of the toolbar
+    - etc
+
+==
 
 ## Requirements
 
 - Add `AppCompat` to the project as a dependency
 - Use one of the AppCompat themes
 - Ensure that all activities are a subclass of AppCompatActivity
+
+==
 
 ## the AppCompat themes
 - the AppCompat library comes with three themes:
@@ -46,9 +56,13 @@
 </resources>
 ```
 
+==
+
 ## AppCompatActivity
 
 - Can substitute for `FragmentActivity` since `AppCompatActivity` is a subclass of `FragmentActivity`
+
+==
 
 ## Hierarchical navigation (Up button)
 - As opposed to back buton being *temporal navigation*

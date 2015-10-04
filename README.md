@@ -99,4 +99,13 @@ Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 
 ## Don't forget to add an activity to the manifest
 - When creating a new activity, add it to the manifest so that the OS can start it.
-- 
+
+==
+
+## Creating an icon as a local resource using Android Asset Studio
+1. right-click on the drawable directory
+2. select New -> Image Assset
+
+- mdpi, hdpi, xhdpi, xxhdpi icons will be automatically created
+- Reference the icon using `@drawable/ic_name` in the xml file
+

@@ -10,6 +10,7 @@
     <string name="title_activity_crime_pager">CrimePagerActivity</string>
     <string name="date_picker_title">Date of crime:</string>
     <string name="new_crime">New crime</string>
+    <string name="delete_crime">Delete crime</string>
     <string name="show_subtitle">Show subtitle</string>
     <string name="hide_subtitle">Hide subtitle</string>
     <string name="subtitle_format">%1$1s crimes</string>

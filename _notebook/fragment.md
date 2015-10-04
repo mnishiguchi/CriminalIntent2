@@ -17,8 +17,8 @@
 
 ### Activity classes from the support library
 
-- `android.support.v4.app.FragmentActivity`
-- Note: if we need to back-port the toolbar, use `android.support.v7.app.AppCompatActivity`, instead
+- `android.support.v4.app.FragmentActivity`; or
+- `android.support.v7.app.AppCompatActivity` (back-ports the toolbar)
 
 ==
 
