@@ -1,6 +1,7 @@
 package com.mnishiguchi.criminalintent2;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class CrimeLab {
         crime.save();       // database
         mCrimes.add(crime); // local list
 
-        Utils.toast(mAppContext, crime.getTitle() + " saved");
+        Utils.toast(mAppContext, checkEmptyTitle(crime) + " saved");
     }
 
     /**
@@ -63,7 +64,7 @@ public class CrimeLab {
                 mCrimes.set(i, crime);
             }
 
-            Utils.toast(mAppContext, crime.getTitle() + " updated");
+            Utils.toast(mAppContext, checkEmptyTitle(crime) + " updated");
         }
     }
 
@@ -105,5 +106,13 @@ public class CrimeLab {
      */
     public int getSize() {
         return mCrimes.size();
+    }
+
+    /**
+     * Return a friendly untitled string in case that title is empty.
+     */
+    public String checkEmptyTitle(Crime crime) {
+        return TextUtils.isEmpty(crime.getTitle()) ?
+                mAppContext.getString(android.R.string.untitled) : crime.getTitle();
     }
 }
