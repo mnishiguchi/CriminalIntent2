@@ -214,7 +214,7 @@ public class CrimeFragment extends Fragment {
 
                 // Delete the crime from the CrimeLab
                 //CrimeLab.get(getActivity()).deleteCrime(mCrime);
-                mCrime.delete();
+                Crime.delete(mCrime);
 
                 // Show toast
                 Utils.toast(getActivity(), crimeTitle + " was deleted");

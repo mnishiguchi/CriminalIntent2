@@ -79,7 +79,7 @@ public class CrimePagerActivity extends AppCompatActivity {
         for (int i = 0; i < mCrimes.size(); i++) {
             // Search for the item with the given ID in the list and
             // set it as the initial item to display.
-            if (mCrimes.get(i).getId().equals(crimeId) ) {
+            if (mCrimes.get(i).getCrimeId().equals(crimeId) ) {
                 mViewPager.setCurrentItem(i);
                 break;
             }
