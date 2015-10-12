@@ -49,7 +49,7 @@ public class CrimeFragment extends Fragment {
      * @param crimeId
      * @return
      */
-    public static CrimeFragment newInstance(UUID crimeId) {
+    public static CrimeFragment newInstance(String crimeId) {
 
         // Create a bundle.
         Bundle args = new Bundle();
@@ -66,7 +66,7 @@ public class CrimeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Get the crime ID and fetch the crime from CrimeLab based the ID.
-        UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+        String crimeId = getArguments().getString(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
 
         // Get the FragmentManager to call onCreateOptionsMenu(...) when

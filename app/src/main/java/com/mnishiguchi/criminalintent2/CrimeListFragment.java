@@ -3,7 +3,6 @@ package com.mnishiguchi.criminalintent2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -125,7 +123,7 @@ public class CrimeListFragment extends Fragment {
     private void createCrime() {
         Crime crime = new Crime();
         CrimeLab.get(getActivity()).addCrime(crime);
-        Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
+        Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getCrimeId());
         startActivity(intent);
     }
 
@@ -227,7 +225,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             // Start CrimeActivity for the crime that was clicked.
-            Intent i = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
+            Intent i = CrimePagerActivity.newIntent(getActivity(), mCrime.getCrimeId());
             startActivity(i);
         }
     }

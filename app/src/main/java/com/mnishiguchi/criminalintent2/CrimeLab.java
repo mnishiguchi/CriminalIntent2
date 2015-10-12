@@ -2,18 +2,24 @@ package com.mnishiguchi.criminalintent2;
 
 import android.content.Context;
 
+import com.orm.query.Condition;
+import com.orm.query.Select;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static com.mnishiguchi.criminalintent2.Crime.*;
 
 /**
  * Centralize data storage
  */
 public class CrimeLab {
 
+    // A snapshot of the crimes list
     private List<Crime> mCrimes;
 
-    // Storage for an instance of CrimeLab
+    // A CrimeLab singleton instance
     private static CrimeLab sCrimeLab;
 
     /**
@@ -33,15 +39,15 @@ public class CrimeLab {
      * @param context
      */
     private CrimeLab(Context context) {
-        mCrimes = new ArrayList<>();
-        //createFakeCrimes();
+        mCrimes = listAll(Crime.class);
     }
 
     /**
-     * Add a new crime
+     * Add a new crime to daatabase
      * @param c
      */
     public void addCrime(Crime c) {
+        c.save();
         mCrimes.add(c);
     }
 
@@ -50,6 +56,7 @@ public class CrimeLab {
      * @param c
      */
     public void deleteCrime(Crime c) {
+        c.delete();
         mCrimes.remove(c);
     }
 
@@ -57,6 +64,7 @@ public class CrimeLab {
      * @return an ArrayList of Crime objects
      */
     public List<Crime> getCrimes() {
+        mCrimes = listAll(Crime.class);
         return mCrimes;
     }
 
@@ -64,24 +72,9 @@ public class CrimeLab {
      * @param id
      * @return a Crime object with the specified id
      */
-    public Crime getCrime(UUID id) {
-        for (Crime crime : mCrimes) {
-            if (crime.getId().equals(id) ) {
-                return crime;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * For development only
-     */
-    private void createFakeCrimes() {
-        for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setSolved(i % 2 == 0);  // Every other one
-            mCrimes.add(crime);
-        }
+    public Crime getCrime(String id) {
+        return Select.from(Crime.class)
+                .where( Condition.prop("UUID").eq(id) )
+                .list().get(0);
     }
 }

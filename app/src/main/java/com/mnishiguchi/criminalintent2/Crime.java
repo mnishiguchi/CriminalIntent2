@@ -1,30 +1,36 @@
 package com.mnishiguchi.criminalintent2;
 import android.content.Context;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import com.orm.SugarRecord;
+
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.UUID;
 
 /**
  * Created by masa on 9/7/15.
  */
-public class Crime {
+public class Crime extends SugarRecord<Crime> {
 
-    private UUID mId;
+    private String mId;
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
 
     public Crime() {
-        mId = UUID.randomUUID(); // Generate unique identifier
+        mId = UUID.randomUUID().toString(); // Generate unique identifier
         mDate = new Date();      // The date a crime occurred
+    }
+
+    public Crime(String id, Date date, String title, boolean solved) {
+        mId     = id;
+        mTitle  = title;
+        mDate   = date;
+        mSolved = solved;
     }
 
     //==> Getters and setters
 
-    public UUID getId() {
+    public String getCrimeId() {
         return mId;
     }
 

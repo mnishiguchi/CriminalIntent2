@@ -32,7 +32,7 @@ public class CrimePagerActivity extends AppCompatActivity {
      * @param crimeId
      * @return intent
      */
-    public static Intent newIntent(Context packageContext, UUID crimeId) {
+    public static Intent newIntent(Context packageContext, String crimeId) {
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
         intent.putExtra(EXTRA_CRIME_ID, crimeId);
         return intent;
@@ -44,7 +44,7 @@ public class CrimePagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crime_pager);
 
         // Get the crime id to determine the initial position.
-        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        String crimeId = getIntent().getStringExtra(EXTRA_CRIME_ID);
 
         // Inflate the pager.
         mViewPager = (ViewPager) findViewById(R.id.activity_crime_pager_view_pager);
@@ -62,7 +62,7 @@ public class CrimePagerActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 Crime crime = mCrimes.get(position);
-                return CrimeFragment.newInstance(crime.getId());
+                return CrimeFragment.newInstance(crime.getCrimeId());
             }
 
             /**
