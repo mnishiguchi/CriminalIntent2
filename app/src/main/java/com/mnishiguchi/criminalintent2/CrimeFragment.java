@@ -66,8 +66,7 @@ public class CrimeFragment extends Fragment {
 
         // Get the crime ID and fetch the crime from CrimeLab based the ID.
         String crimeId = getArguments().getString(ARG_CRIME_ID);
-        //mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
-        mCrime = Crime.get(crimeId);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
 
         // Get the FragmentManager to call onCreateOptionsMenu(...) when
         // the hosting Activity receives its onCreateOptionsMenu(...)
@@ -213,8 +212,7 @@ public class CrimeFragment extends Fragment {
                         getString(android.R.string.untitled) : mCrime.getTitle();
 
                 // Delete the crime from the CrimeLab
-                //CrimeLab.get(getActivity()).deleteCrime(mCrime);
-                Crime.delete(mCrime);
+                CrimeLab.get(getActivity()).deleteCrime(mCrime);
 
                 // Show toast
                 Utils.toast(getActivity(), crimeTitle + " was deleted");

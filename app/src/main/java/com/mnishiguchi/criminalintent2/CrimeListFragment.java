@@ -123,15 +123,14 @@ public class CrimeListFragment extends Fragment {
     private void createCrime() {
         Crime crime = new Crime();
         //CrimeLab.get(getActivity()).addCrime(crime);
-        Crime.add(crime);
+        CrimeLab.addCrime(crime);
         Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getCrimeId());
         startActivity(intent);
     }
 
     private void updateSubtitle() {
         //CrimeLab crimeLab = CrimeLab.get(getActivity());
-        //int crimeCount = crimeLab.getCrimes().size();
-        int crimeCount = Crime.getSize();
+        int crimeCount = CrimeLab.getSize();
         String subtitle = getString(R.string.subtitle_format, crimeCount);
 
         // Hide the subtitle if in the hidden state
@@ -150,10 +149,8 @@ public class CrimeListFragment extends Fragment {
     private void updateUI() {
 
         // Get a list of crimes from the model layer
-        //CrimeLab crimeLab = CrimeLab.get(getActivity());
-        //List<Crime> crimes = crimeLab.getCrimes();
-
-        List<Crime> crimes = Crime.getAll();
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        List<Crime> crimes = crimeLab.getCrimes();
 
         // Reload the list if the adapter is already set up.
         if (mAdapter == null) {
