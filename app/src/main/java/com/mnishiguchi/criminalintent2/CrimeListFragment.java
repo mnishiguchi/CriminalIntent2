@@ -122,15 +122,14 @@ public class CrimeListFragment extends Fragment {
 
     private void createCrime() {
         Crime crime = new Crime();
-        //CrimeLab.get(getActivity()).addCrime(crime);
-        CrimeLab.addCrime(crime);
+        CrimeLab.get(getActivity()).addCrime(crime);
         Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getCrimeId());
         startActivity(intent);
     }
 
     private void updateSubtitle() {
-        //CrimeLab crimeLab = CrimeLab.get(getActivity());
-        int crimeCount = CrimeLab.getSize();
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        int crimeCount = crimeLab.getSize();
         String subtitle = getString(R.string.subtitle_format, crimeCount);
 
         // Hide the subtitle if in the hidden state

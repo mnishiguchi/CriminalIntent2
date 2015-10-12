@@ -74,6 +74,14 @@ public class CrimeFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+
+        // Save the current state of the crime to database
+        CrimeLab.get(getActivity()).updateCrime(mCrime);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
@@ -219,7 +227,8 @@ public class CrimeFragment extends Fragment {
 
                 // Close this activity
                 getActivity().finish();
-                return true;  // Indicate that no further processing is necessary
+
+                return true;  // no further processing is necessary
 
             default:
                 return super.onOptionsItemSelected(item);

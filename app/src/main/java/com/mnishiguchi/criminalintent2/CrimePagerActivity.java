@@ -75,7 +75,7 @@ public class CrimePagerActivity extends AppCompatActivity {
         });
 
         // Set the initial pager item.
-        for (int i = 0; i < mCrimes.size(); i++) {
+        for (int i = 0, size = mCrimes.size(); i < size; i++) {
             // Search for the item with the given ID in the list and
             // set it as the initial item to display.
             if (mCrimes.get(i).getCrimeId().equals(crimeId) ) {

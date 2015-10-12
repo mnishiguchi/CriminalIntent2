@@ -4,22 +4,24 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
- * Centralize data storage
+ * Centralizes data management, handling CRUD operations on database.
+ * Works as an in-memory object store.
  */
 public class CrimeLab {
+
+    // the CrimeLab singleton instance
+    private static CrimeLab sCrimeLab;
 
     // Local storage for the crime data so that we need not access database many times.
     // Make sure that maintain the list when adding / deleting elements.
     private static List<Crime> mCrimes = Crime.listAll(Crime.class);
 
-    // the CrimeLab singleton instance
-    private static CrimeLab sCrimeLab;
+    private Context mAppContext;
 
     /**
-     * Get access to the singleton CrimeLab object
+     * Gets access to the singleton CrimeLab object
      * @param context
      * @return a CrimeLab object
      */
@@ -32,39 +34,62 @@ public class CrimeLab {
 
     /**
      * Private constructor to create a CrimeLab singleton instance.
-     * @param context
+     * @param appContext
      */
-    private CrimeLab(Context context) {
+    private CrimeLab(Context appContext) {
+        mAppContext = appContext;
         mCrimes = new ArrayList<>();
     }
 
     /**
      * Add a new crime to database
      */
-    public static void addCrime(Crime crime) {
+    public void addCrime(Crime crime) {
         crime.save();       // database
         mCrimes.add(crime); // local list
+
+        Utils.toast(mAppContext, crime.getTitle() + " saved");
     }
 
     /**
-     * Delete a crime from database
+     * Update a crime to database
      */
-    public static void deleteCrime(Crime crime) {
+    public void updateCrime(Crime crime) {
+        crime.save();  // database
+
+        // Update the local list
+        for (int i = 0, size = getSize(); i < size; i++) {
+            if (mCrimes.get(i).getCrimeId().equals(crime.getCrimeId())) {
+                mCrimes.set(i, crime);
+            }
+
+            Utils.toast(mAppContext, crime.getTitle() + " updated");
+        }
+    }
+
+    /**
+     * Deletes a crime from database
+     */
+    public void deleteCrime(Crime crime) {
+        String title = crime.getTitle();
+
         crime.delete();        // database
         mCrimes.remove(crime); // local list
+
+        Utils.toast(mAppContext, title + " deleted");
     }
 
     /**
-     * Get a list of all the crimes from database
+     * Gets a list of all the crimes from database
      */
-    public static List<Crime> getCrimes() {
+    public List<Crime> getCrimes() {
         return mCrimes;
     }
 
     /**
-     * Get a specific crime.
+     * Gets a specific crime.
      */
-    public static Crime getCrime(String crimeId) {
+    public Crime getCrime(String crimeId) {
 
         // Search in the local list
         for (Crime crime : mCrimes) {
@@ -78,7 +103,7 @@ public class CrimeLab {
     /**
      * @return the number of rows in the database
      */
-    public static int getSize() {
+    public int getSize() {
         return mCrimes.size();
     }
 }

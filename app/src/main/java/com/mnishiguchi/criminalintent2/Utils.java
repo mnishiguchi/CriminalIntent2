@@ -1,6 +1,7 @@
 package com.mnishiguchi.criminalintent2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 
 /**
@@ -8,8 +9,8 @@ import android.widget.Toast;
  */
 public class Utils {
 
-    public static void toast(Activity a, String msg) {
-        Toast.makeText(a, msg, Toast.LENGTH_SHORT).show();
+    public static void toast(Context c, String msg) {
+        Toast.makeText(c, msg, Toast.LENGTH_SHORT).show();
     }
 
 }

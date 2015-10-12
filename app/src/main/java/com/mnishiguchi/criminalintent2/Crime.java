@@ -2,16 +2,14 @@ package com.mnishiguchi.criminalintent2;
 import android.content.Context;
 
 import com.orm.SugarRecord;
-import com.orm.query.Condition;
-import com.orm.query.Select;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 /**
  * Represents a crime case.
  * SugarRecord handles the database creation and provides us with some convenient methods.
+ * Database access is always performed through CrimeLab.
  *
  * Created by masa on 9/7/15.
  */
@@ -27,10 +25,9 @@ public class Crime extends SugarRecord<Crime> {
         this.date    = new Date();                    // The date a crime occurred
     }
 
-    /* DB access static methods
-
-    There are db related methods provided by SugarRecord.
-    But, in this app, accessing database is performed through CrimeLab.
+    /* Some db related methods provided by SugarRecord.
+    In this app, accessing database is performed through CrimeLab.
+    So do not directly manipulate database from anywhere else.
         - crime.save();
         - crime.delete();
         - crime.getID();
