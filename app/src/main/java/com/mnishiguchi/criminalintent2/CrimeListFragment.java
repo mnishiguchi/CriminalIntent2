@@ -122,14 +122,15 @@ public class CrimeListFragment extends Fragment {
 
     private void createCrime() {
         Crime crime = new Crime();
-        CrimeLab.get(getActivity()).addCrime(crime);
+        //CrimeLab.get(getActivity()).addCrime(crime);
         Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getCrimeId());
         startActivity(intent);
     }
 
     private void updateSubtitle() {
-        CrimeLab crimeLab = CrimeLab.get(getActivity());
-        int crimeCount = crimeLab.getCrimes().size();
+        //CrimeLab crimeLab = CrimeLab.get(getActivity());
+        //int crimeCount = crimeLab.getCrimes().size();
+        int crimeCount = Crime.size();
         String subtitle = getString(R.string.subtitle_format, crimeCount);
 
         // Hide the subtitle if in the hidden state
@@ -148,14 +149,17 @@ public class CrimeListFragment extends Fragment {
     private void updateUI() {
 
         // Get a list of crimes from the model layer
-        CrimeLab crimeLab = CrimeLab.get(getActivity());
-        List<Crime> crimes = crimeLab.getCrimes();
+        //CrimeLab crimeLab = CrimeLab.get(getActivity());
+        //List<Crime> crimes = crimeLab.getCrimes();
+
+        List<Crime> crimes = Crime.getAll();
 
         // Reload the list if the adapter is already set up.
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
+            mAdapter.setCrimes(crimes);
             mAdapter.notifyDataSetChanged();
         }
 
@@ -285,6 +289,14 @@ public class CrimeListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mCrimes.size();
+        }
+
+        /**
+         * Replace the list of the crimes with a new list.
+         * @param crimes
+         */
+        public void setCrimes(List<Crime> crimes) {
+            mCrimes = crimes;
         }
     }
 }
