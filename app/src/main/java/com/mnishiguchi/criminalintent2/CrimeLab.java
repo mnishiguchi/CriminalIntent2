@@ -15,14 +15,14 @@ public class CrimeLab {
     // the CrimeLab singleton instance
     private static CrimeLab sCrimeLab;
 
-    // Local storage for the crime data so that we need not access database many times.
+    // In-memory storage for the crime data.
     // Make sure that maintain the list when adding / deleting elements.
-    private static List<Crime> mCrimes = Crime.listAll(Crime.class);
+    private List<Crime> mCrimes = Crime.listAll(Crime.class);
 
     private Context mAppContext;
 
     /**
-     * Gets access to the singleton CrimeLab object
+     * Provides access to the singleton CrimeLab object
      * @param context
      * @return a CrimeLab object
      */
@@ -62,9 +62,10 @@ public class CrimeLab {
         for (int i = 0, size = getSize(); i < size; i++) {
             if (mCrimes.get(i).getCrimeId().equals(crime.getCrimeId())) {
                 mCrimes.set(i, crime);
-            }
 
-            Utils.toast(mAppContext, checkEmptyTitle(crime) + " updated");
+                Utils.toast(mAppContext, checkEmptyTitle(crime) + " updated");
+                return;
+            }
         }
     }
 
