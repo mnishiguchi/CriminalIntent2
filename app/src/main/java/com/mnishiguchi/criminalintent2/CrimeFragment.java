@@ -20,7 +20,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by masa on 9/7/15.
@@ -67,7 +66,8 @@ public class CrimeFragment extends Fragment {
 
         // Get the crime ID and fetch the crime from CrimeLab based the ID.
         String crimeId = getArguments().getString(ARG_CRIME_ID);
-        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+        //mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
+        mCrime = Crime.get(crimeId);
 
         // Get the FragmentManager to call onCreateOptionsMenu(...) when
         // the hosting Activity receives its onCreateOptionsMenu(...)
@@ -213,7 +213,8 @@ public class CrimeFragment extends Fragment {
                         getString(android.R.string.untitled) : mCrime.getTitle();
 
                 // Delete the crime from the CrimeLab
-                CrimeLab.get(getActivity()).deleteCrime(mCrime);
+                //CrimeLab.get(getActivity()).deleteCrime(mCrime);
+                mCrime.delete();
 
                 // Show toast
                 Utils.toast(getActivity(), crimeTitle + " was deleted");
