@@ -1,7 +1,6 @@
 package com.mnishiguchi.criminalintent2;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +21,9 @@ public class CrimeLab {
     private Context mAppContext;
 
     /**
-     * Provides access to the singleton CrimeLab object
+     * Provides access to the CrimeLab singleton instance.
      * @param context
-     * @return a CrimeLab object
+     * @return a reference to the CrimeLab singleton instance
      */
     public static CrimeLab get(Context context) {
         if (sCrimeLab == null) {
@@ -49,7 +48,8 @@ public class CrimeLab {
         crime.save();       // database
         mCrimes.add(crime); // local list
 
-        Utils.toast(mAppContext, checkEmptyTitle(crime) + " saved");
+        String title = Utils.checkEmptyTitle(mAppContext, crime.getTitle());
+        Utils.toast(mAppContext, title + " saved");
     }
 
     /**
@@ -59,11 +59,12 @@ public class CrimeLab {
         crime.save();  // database
 
         // Update the local list
-        for (int i = 0, size = getSize(); i < size; i++) {
+        for (int i = 0, size = getCount(); i < size; i++) {
             if (mCrimes.get(i).getCrimeId().equals(crime.getCrimeId())) {
                 mCrimes.set(i, crime);
 
-                Utils.toast(mAppContext, checkEmptyTitle(crime) + " updated");
+                String title = Utils.checkEmptyTitle(mAppContext, crime.getTitle());
+                Utils.toast(mAppContext, title + " updated");
                 return;
             }
         }
@@ -82,14 +83,14 @@ public class CrimeLab {
     }
 
     /**
-     * Gets a list of all the crimes from database
+     * @return a reference to the in-memory list of all the crimes.
      */
     public List<Crime> getCrimes() {
         return mCrimes;
     }
 
     /**
-     * Gets a specific crime.
+     * @return the specified crime.
      */
     public Crime getCrime(String crimeId) {
 
@@ -105,15 +106,7 @@ public class CrimeLab {
     /**
      * @return the number of rows in the database
      */
-    public int getSize() {
-        return mCrimes.size();
-    }
-
-    /**
-     * Return a friendly untitled string in case that title is empty.
-     */
-    public String checkEmptyTitle(Crime crime) {
-        return TextUtils.isEmpty(crime.getTitle()) ?
-                mAppContext.getString(android.R.string.untitled) : crime.getTitle();
+    public int getCount() {
+        return (int) Crime.count(Crime.class, null, null, null, null, null);
     }
 }
